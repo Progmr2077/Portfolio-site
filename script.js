@@ -7,10 +7,11 @@
 const subtitle = document.getElementById("subtitle");
 
 const messages = [
+  "Computer Programming and Analysis Student",
   "Software Developer",
   "Problem Solver",
-  "Web & Game Programmer",
-  "Tech Enthusiast"
+  "Web developer",
+  "Game developer"
 ];
 
 let index = 0;
