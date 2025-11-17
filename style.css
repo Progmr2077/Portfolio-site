@@ -1,30 +1,84 @@
+/* Root + transitions */
+:root {
+  --bg: #ffffff;
+  --fg: #0f172a;
+  --muted: #5b6472;
+  --primary: #0d6efd;
+  --card: #f8f9fa;
+  --border: #e9ecef;
+}
+* { box-sizing: border-box; }
+html, body { height: 100%; }
 body {
-  font-family: Arial, sans-serif;
-}
-h2 {
-  margin-bottom: 20px;
-  text-align: center;
-}
-section {
-  margin-bottom: 50px;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  background-color: var(--bg);
+  color: var(--fg);
+  transition: background-color 0.25s ease, color 0.25s ease;
 }
 
-/* Default light mode */
-body {
-  background-color: #ffffff;
-  color: #000000;
-}
-
-/* Dark mode */
+/* Dark mode palette */
 body.dark-mode {
-  background-color: #121212;
-  color: #f5f5f5;
+  --bg: #0b0f14;
+  --fg: #e6e8ea;
+  --muted: #a7adb5;
+  --primary: #69a6ff;
+  --card: #121821;
+  --border: #1b2430;
 }
 
-.navbar.dark-mode {
-  background-color: #1f1f1f !important;
+/* Navbar and hero */
+.navbar { border-bottom: 1px solid var(--border); }
+.hero-section {
+  background: linear-gradient(180deg, var(--card), var(--bg));
+}
+.section-title { color: var(--fg); }
+
+/* Cards */
+.card {
+  background-color: var(--card);
+  border-color: var(--border);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.25s ease;
+}
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
 }
 
-section.dark-mode {
-  background-color: #1e1e1e;
+/* Project images */
+.project-card .card-img-top {
+  height: 180px;
+  object-fit: cover;
 }
+
+/* Timeline */
+.timeline { position: relative; margin-left: 1rem; }
+.timeline::before {
+  content: "";
+  position: absolute;
+  left: 10px;
+  top: 0; bottom: 0;
+  width: 2px;
+  background-color: var(--border);
+}
+.timeline-item { position: relative; padding-left: 2rem; margin-bottom: 1.5rem; }
+.timeline-dot {
+  position: absolute; left: 3px; top: 6px;
+  width: 14px; height: 14px;
+  background-color: var(--primary);
+  border-radius: 50%;
+}
+
+/* Buttons and links respect theme */
+.btn, .nav-link, a { transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease; }
+
+/* Footer */
+.footer { border-top: 1px solid var(--border); background-color: var(--card); }
+
+/* Clock */
+#clock { font-size: 1rem; color: var(--primary); }
+
+/* Utilities */
+.section { scroll-margin-top: 80px; }
+
+/* Improve focus */
+:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
