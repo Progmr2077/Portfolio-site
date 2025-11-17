@@ -1,48 +1,87 @@
-// Theme toggle with persistence
-const toggleButton = document.getElementById("theme-toggle");
-const body = document.body;
+// -------------------------------
+// Typewriter Effect
+// -------------------------------
+// -----------------------------------
+// Smooth Typewriter Effect (fixed)
+// -----------------------------------
+const subtitle = document.getElementById("subtitle");
 
-function setThemeFromStorage() {
-  const saved = localStorage.getItem("theme");
-  const prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
-  const dark = saved ? saved === "dark" : prefersDark;
+const messages = [
+  "Software Developer",
+  "Problem Solver",
+  "Web & Game Programmer",
+  "Tech Enthusiast"
+];
 
-  body.classList.toggle("dark-mode", dark);
-  toggleButton.textContent = dark ? "☀️ Light" : "🌙 Dark";
+let index = 0;
+let charIndex = 0;
+let deleting = false;
+
+function type() {
+  const current = messages[index];
+
+  // Typing forward
+  if (!deleting) {
+    subtitle.textContent = current.slice(0, charIndex + 1);
+    charIndex++;
+
+    // Word finished typing
+    if (charIndex === current.length) {
+      deleting = true;
+      setTimeout(type, 1000); // pause before deleting
+      return;
+    }
+  }
+
+  // Deleting backwards
+  else {
+    subtitle.textContent = current.slice(0, charIndex - 1);
+    charIndex--;
+
+    // Finished deleting the entire word
+    if (charIndex === 0) {
+      deleting = false;
+      index = (index + 1) % messages.length;
+    }
+  }
+
+  setTimeout(type, deleting ? 60 : 80);
 }
-setThemeFromStorage();
 
-toggleButton.addEventListener("click", () => {
-  const isDark = body.classList.toggle("dark-mode");
-  localStorage.setItem("theme", isDark ? "dark" : "light");
-  toggleButton.textContent = isDark ? "☀️ Light" : "🌙 Dark";
+type();
+
+
+// -------------------------------
+// Scroll Reveal Animations
+// -------------------------------
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add("visible");
+      observer.unobserve(entry.target);
+    }
+  });
 });
 
-// Live date + time clock
-function updateClock() {
-  const el = document.getElementById("clock");
-  if (!el) return;
+document.querySelectorAll(".fade").forEach(el => observer.observe(el));
 
-  const now = new Date();
-  const dateStr = now.toLocaleDateString(undefined, {
-    weekday: "long", year: "numeric", month: "long", day: "numeric"
-  });
-  const timeStr = now.toLocaleTimeString(undefined, {
-    hour: "2-digit", minute: "2-digit", second: "2-digit"
-  });
-  el.textContent = `${dateStr} – ${timeStr}`;
-}
-updateClock();
-setInterval(updateClock, 1000);
 
-// Contact form (client-side demo)
-const form = document.getElementById("contact-form");
-const statusEl = document.getElementById("form-status");
-if (form) {
-  form.addEventListener("submit", (e) => {
-    e.preventDefault();
-    statusEl.textContent = "Thanks! Your message has been captured (demo).";
-    statusEl.className = "text-success";
-    form.reset();
-  });
+// -------------------------------
+// Dark Mode Toggle
+// -------------------------------
+const toggle = document.querySelector("[data-theme-toggle]");
+const body = document.body;
+
+// Load saved theme
+if (localStorage.getItem("theme") === "dark") {
+  body.classList.add("dark-mode");
+  toggle.textContent = "☀️";
 }
+
+// Toggle click event
+toggle.addEventListener("click", () => {
+  body.classList.toggle("dark-mode");
+  const dark = body.classList.contains("dark-mode");
+  toggle.textContent = dark ? "☀️" : "🌙";
+  localStorage.setItem("theme", dark ? "dark" : "light");
+});
