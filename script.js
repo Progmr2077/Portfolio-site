@@ -1,64 +1,59 @@
 // -------------------------------
-// Typewriter Effect
+// Typewriter Effect (No Jumping)
 // -------------------------------
-// -----------------------------------
-// Smooth Typewriter Effect (fixed)
-// -----------------------------------
 const subtitle = document.getElementById("subtitle");
+const measure = document.getElementById("subtitle-measure");
 
 const messages = [
   "Computer Programming and Analysis Student",
   "Software Developer",
   "Problem Solver",
   "Web developer",
-  "Game developer",
+  "Game developer"
 ];
 
 let index = 0;
 let charIndex = 0;
 let deleting = false;
 
+// Lock subtitle height to max
+const longest = messages.reduce((a, b) => (a.length > b.length ? a : b));
+measure.textContent = longest;
+subtitle.style.minHeight = measure.offsetHeight + "px";
+
 function type() {
   const current = messages[index];
 
-  // Typing forward
   if (!deleting) {
     subtitle.textContent = current.slice(0, charIndex + 1);
     charIndex++;
 
-    // Word finished typing
     if (charIndex === current.length) {
       deleting = true;
-      setTimeout(type, 1000); // pause before deleting
+      setTimeout(type, 1000);
       return;
     }
-  }
-
-  // Deleting backwards
-  else {
+  } else {
     subtitle.textContent = current.slice(0, charIndex - 1);
     charIndex--;
 
-    // Finished deleting the entire word
     if (charIndex === 0) {
       deleting = false;
       index = (index + 1) % messages.length;
     }
   }
 
-  measure.textContent = current; // measure full string height
-  subtitle.style.height = measure.offsetHeight + "px"; // apply exact height
-
   setTimeout(type, deleting ? 60 : 80);
 }
 
 type();
 
+
 // -------------------------------
 // Scroll Reveal Animations
 // -------------------------------
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach((entry) => {
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
     if (entry.isIntersecting) {
       entry.target.classList.add("visible");
       observer.unobserve(entry.target);
@@ -66,7 +61,8 @@ const observer = new IntersectionObserver((entries) => {
   });
 });
 
-document.querySelectorAll(".fade").forEach((el) => observer.observe(el));
+document.querySelectorAll(".fade").forEach(el => observer.observe(el));
+
 
 // -------------------------------
 // Dark Mode Toggle
@@ -74,13 +70,11 @@ document.querySelectorAll(".fade").forEach((el) => observer.observe(el));
 const toggle = document.querySelector("[data-theme-toggle]");
 const body = document.body;
 
-// Load saved theme
 if (localStorage.getItem("theme") === "dark") {
   body.classList.add("dark-mode");
   toggle.textContent = "☀️";
 }
 
-// Toggle click event
 toggle.addEventListener("click", () => {
   body.classList.toggle("dark-mode");
   const dark = body.classList.contains("dark-mode");

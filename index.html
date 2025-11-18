@@ -21,13 +21,19 @@
     <header class="hero">
       <div class="blob"></div>
 
+      <!-- FIX: Toggle placed here so it never moves -->
+      <button class="theme-toggle" aria-pressed="false" data-theme-toggle>
+        🌙
+      </button>
+
       <div class="hero-inner">
         <h1 class="title">Jacob Rivera</h1>
+
+        <!-- Typewriter visible text -->
         <p class="subtitle" id="subtitle">Software Developer</p>
+
+        <!-- Hidden measurement element (fixes header movement) -->
         <span id="subtitle-measure" class="subtitle hidden"></span>
-        <button class="theme-toggle" aria-pressed="false" data-theme-toggle>
-          🌙
-        </button>
       </div>
     </header>
 
@@ -85,14 +91,13 @@
       <h2>Projects</h2>
 
       <div class="project-grid">
-        <!-- Habit Tracker -->
         <div class="project fade">
           <div class="thumb">Habit Tracker</div>
           <h3>Habit Tracker</h3>
           <p>
-            A powerful productivity tool where you can add habits, track weekly
-            activity, view monthly calendars, see progress bars, and store data
-            using LocalStorage — all with full dark/light mode support.
+            A productivity tool where you can add habits, track weekly activity,
+            view monthly calendars, see progress bars, and store data using
+            LocalStorage — includes full dark/light mode support.
           </p>
           <div class="project-actions">
             <a class="btn" href="#">Demo</a>
@@ -100,14 +105,13 @@
           </div>
         </div>
 
-        <!-- Expense Tracker -->
         <div class="project fade">
           <div class="thumb">Expense Tracker</div>
           <h3>Expense Tracker</h3>
           <p>
             A clean financial tracker with editable categories, random-color pie
-            chart, income/expense totals, placeholders, and full dark mode
-            support.
+            chart, income/expense totals, custom categories, placeholders, and
+            full dark mode support.
           </p>
           <div class="project-actions">
             <a class="btn" href="#">Demo</a>
@@ -115,14 +119,12 @@
           </div>
         </div>
 
-        <!-- Random Joke Generator -->
         <div class="project fade">
           <div class="thumb">Joke Generator</div>
           <h3>Random Joke Generator</h3>
           <p>
             Fetches jokes from JokeAPI with smooth fade animations, instant
-            refresh, centered layout, and complete dark/light mode
-            functionality.
+            refresh, centered layout, and complete dark/light mode support.
           </p>
           <div class="project-actions">
             <a class="btn" href="#">Demo</a>
@@ -130,13 +132,12 @@
           </div>
         </div>
 
-        <!-- Password Generator -->
         <div class="project fade">
           <div class="thumb">Password Generator</div>
           <h3>Password Generator</h3>
           <p>
-            Fully customizable password creator with length slider, toggles for
-            character types, a strength meter, responsive layout, and reliable
+            Fully customizable password creator with length slider, character
+            toggles, strength meter, responsive layout, and reliable
             copy-to-clipboard functionality.
           </p>
           <div class="project-actions">
