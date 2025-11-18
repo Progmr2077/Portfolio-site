@@ -11,7 +11,7 @@ const messages = [
   "Software Developer",
   "Problem Solver",
   "Web developer",
-  "Game developer"
+  "Game developer",
 ];
 
 let index = 0;
@@ -46,17 +46,19 @@ function type() {
     }
   }
 
+  measure.textContent = current; // measure full string height
+  subtitle.style.height = measure.offsetHeight + "px"; // apply exact height
+
   setTimeout(type, deleting ? 60 : 80);
 }
 
 type();
 
-
 // -------------------------------
 // Scroll Reveal Animations
 // -------------------------------
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
     if (entry.isIntersecting) {
       entry.target.classList.add("visible");
       observer.unobserve(entry.target);
@@ -64,8 +66,7 @@ const observer = new IntersectionObserver(entries => {
   });
 });
 
-document.querySelectorAll(".fade").forEach(el => observer.observe(el));
-
+document.querySelectorAll(".fade").forEach((el) => observer.observe(el));
 
 // -------------------------------
 // Dark Mode Toggle
